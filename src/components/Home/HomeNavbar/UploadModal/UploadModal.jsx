@@ -1,51 +1,64 @@
 import React, { useState, useContext } from 'react'
-import { Upload, message, Button, Input } from 'antd';
+import { Input, Form, Upload, Spin } from 'antd';
 import { InboxOutlined } from '@ant-design/icons';
 import { UserContext } from '../../../../App';
 import { Notification } from '../../../Notification/Notification';
 
 const { Dragger } = Upload;
 
-const UploadModal = ({ showModal }) => {
+const UploadModal = ({ showModal, form }) => {
+  const [isLoading, setIsLoading] = useState(false);
   const { authService, bookService } = useContext(UserContext);
-  const [bookTitle, setBookTitle] = useState('');
-  const [bookTitleButton, setBookTitleButton] = useState(false);
-  /* 
-1. input title
-3. fileList.forEach is not necessary (confirm)
-4. Tie this to the modal Confirm and actions to then load onto the screen.
-5. Connect the home page to show the updated bookList appropriately.
-6. Make api calls stack into one or two functions rather than chaining with then?
-*/
 
-  const handleTitle = ({ target: { value} }) => setBookTitle(value);
+  const onSubmit = values => {
+    console.log(values, 'values')
+    const { bookTitle } = values;
+    setIsLoading(true);
+      console.log(bookService.bookList);
+      bookService.createNewBook(
+        bookService.s3Url, 
+        bookTitle,
+        bookService.s3Key, 
+        authService.bearerHeader, 
+        authService.id
+      )
+      .then(() => {
+        console.log(bookService.bookList);
+        Notification('success', 'Upload Successful', 'Your book title and image has been uploaded.')
+        showModal();
+        form.resetFields();
+        setIsLoading(false);
+      })
+      .catch((error) => console.log(error));
+  };
 
   const handleUpload = ({onSuccess, onError, file}) => {
+    setIsLoading(true);
     bookService.createS3Url(authService.bearerHeader)
       .then(() => {
         bookService.uploadImageToS3(bookService.s3Url, file)
         .then(() => {
-          bookService.createNewBook(bookService.s3Url, bookTitle, authService.bearerHeader)
-          .then(() => {
-            bookService.getBookList();
-            onSuccess();
-          })
-          .catch((error) => console.log(error));
+          onSuccess()
+          setIsLoading(false);
+          Notification('success', 'Upload Successful', 'Your book image has been uploaded.')
         })
-        .catch((error) => console.log(error));
       })
-      .then(() => {
-        file = '';
-        setBookTitle('');
-        setBookTitleButton(false);
-        showModal();
+      .catch(() => {
+        onError()
+        setIsLoading(false);
+        Notification('error', 'Upload Failed', 'There was an error uploading.')        
       })
-      .catch(error => {
-        console.log(error)
-        onError();
-      });
-      return true;
   }
+
+  const getFile = (e) => {
+    console.log('Upload event:', e);
+  
+    if (Array.isArray(e)) {
+      return e;
+    }
+    
+    return e && e.fileList;
+  };
 
   const props = {
     name: 'file',
@@ -56,63 +69,67 @@ const UploadModal = ({ showModal }) => {
     progress: {
       format: percent => `${parseFloat(percent.toFixed(2))}%`,
     },
-    // onRemove: () => {
-    //   console.log(fileList, 'file');
-    //   setFileList('');
-    //   console.log(fileList, 'file after empty');
-    //   return true;
-    // },
+    onRemove: () => {
+      bookService.deleteImageInS3(authService.bearerHeader, bookService.s3Key)
+      return true;
+    },
     beforeUpload: file => {
       const isPNG = file.type === 'image/png';
       const isJPG = file.type === 'image/jpg';
       const isJPEG = file.type === 'image/jpeg';
       if (!isPNG && !isJPG && !isJPEG) {
-        message.error(`${file.name} is not a png, jpg, or jpeg file`);
+        Notification('error', 'Wrong File Type',`${file.name} is not a png, jpg, or jpeg file`);
         return (isPNG || isJPG || isJPEG) || Upload.LIST_IGNORE;
       }
       return true;
-    },
-    onChange(info) {
-      console.log(info);
-      const { status } = info.file;
-      console.log(status, 'status');
-      if (status !== 'uploading') {
-        console.log('uploading');
-        console.log(info.file, info.fileList);
-      }
-      if (status === 'done') {
-        console.log('done');
-        // message.success(`${info.file.name} file uploaded successfully.`);
-        Notification('success', 'Upload Successful', 'Your book title and image has been uploaded.')
-        console.log(info.file);
-
-      } else if (status === 'error') {
-        console.log('error');
-        message.error(`${info.file.name} file upload failed.`);
-      }
-    },
-    onDrop(e) {
-      console.log('Dropped files', e.dataTransfer.files);
-    },
+    }
   };
-
 
   return (
     <>
-      <Input type='text' value={bookTitle} onChange={handleTitle} placeholder='Book Title'/>
-      <Button onClick={() => setBookTitleButton(true)}>Submit Title</Button>
-      {bookTitleButton &&
-      <Dragger {...props}>
-        <p className="ant-upload-drag-icon">
-          <InboxOutlined />
-        </p>
-        <p className="ant-upload-text">Click or drag file to this area to upload</p>
-        <p className="ant-upload-hint">
-          Support for a single or bulk upload. Strictly prohibit from uploading company data or other
-          band files
-        </p>
-      </Dragger>
-      }
+      <Spin spinning={isLoading}>
+        <Form
+          layout='vertical'
+          name='uploadBookAndTitle'
+          onFinish={onSubmit}
+          form={form}
+        >
+          <Form.Item
+            label='Book Title'
+            name='bookTitle'
+            rules={[
+              {
+                required: true,
+                message: 'Please write a book title'
+              }
+            ]}
+          >
+            <Input type="text" />
+          </Form.Item>
+          <Form.Item label="Upload Photo" >
+            <Form.Item
+              name='uploadPhoto'
+              valuePropName='fileList'
+              getValueFromEvent={getFile}
+              noStyle
+              rules={[
+                {
+                  required: true,
+                  message: 'Please upload a photo'
+                }
+              ]}
+            >
+              <Dragger {...props}>
+                <p className="ant-upload-drag-icon">
+                  <InboxOutlined />
+                </p>
+                <p className="ant-upload-text">Click or drag file to this area to upload</p>
+                <p className="ant-upload-hint">Support for a single or bulk upload.</p>
+              </Dragger>
+            </Form.Item>
+          </Form.Item>
+        </Form>
+      </Spin>
     </>
   )
 }

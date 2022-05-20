@@ -101,6 +101,15 @@ export class AuthService extends User {
     }
   }
 
+  async findUserName(id) {
+    const headers = this.getBearerHeader();
+    try {
+      return await axios.get(`${Endpoints.urlFindUserName}/${id}`, { headers })
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async updateUserDetails(requestBody) {
     const headers = this.getBearerHeader();
     try {
@@ -156,6 +165,41 @@ export class AuthService extends User {
     this.logoutUser();
     try {
       await axios.delete(`${Endpoints.urlDeleteSelf}/${id}`, { headers })
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async forgotQuestion(userEmail) {
+    const body = {
+      "email": userEmail
+    }
+    try {
+      return await axios.put(Endpoints.urlGetForgotQuestion, body, { headers });
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async verifyForgotPassword(email, forgotAnswer) {
+    const body = {
+      "email": email,
+      "forgotPasswordAnswer": forgotAnswer
+    }
+    try {
+      return await axios.post(Endpoints.urlVerifyForgotPassword, body, { headers })
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async resetPassword(resettoken, newPassword) {
+    const headers = this.getBearerHeader();
+    const body = {
+      "password": newPassword
+    }
+    try {
+      await axios.put(`${Endpoints.resetPassword}/${resettoken}`, body, { headers });
     } catch (error) {
       throw error;
     }

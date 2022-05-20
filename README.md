@@ -1,3 +1,18 @@
+Login Screen To Do List:
+1. Finish the reset password modal
+2. Change the basic css to Styled Components
+3. Media Query the Bubbles
+4. Check one more time on the warning of forgot question and answer modal
+
+Redesign Register Screen
+
+Redesign Home Screen
+
+Code Clean Up
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

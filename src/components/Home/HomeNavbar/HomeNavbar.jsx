@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react'
-import { Button, Modal, Drawer } from 'antd';
+import { Button, Modal, Drawer, Form } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../../App';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
@@ -21,6 +21,8 @@ const HomeNavbar = () => {
   const [visibleForgotDrawer, setVisibleForgotDrawer] = useState(false);
   const { authService } = useContext(UserContext);
   const navigate = useNavigate();
+  const [form] = Form.useForm();
+
 
 
   const showModal = () => setVisibleModal(!visibleModal);
@@ -31,22 +33,15 @@ const HomeNavbar = () => {
 
 
   const handleOk = () =>{
-    confirm({
-      title: 'Preview',
-      icon: <ExclamationCircleOutlined />,
-      content: 'Some descriptions', // preview
-      onOk() {
-        setConfirmLoading(false);
-        showModal()
-      },
-      onCancel() {
-        setConfirmLoading(false);
-      },
-    });
+    setConfirmLoading(false);
+    form.submit()
+    // form.resetFields()
+    // showModal()
   }
 
   const handleModalCancel = () => {
     setConfirmLoading(false);
+    form.resetFields();
     showModal()
   };
 
@@ -138,7 +133,7 @@ const HomeNavbar = () => {
         onCancel={handleModalCancel}
         destroyOnClose
       >
-        <UploadModal showModal={showModal}/>
+        <UploadModal showModal={showModal} form={form}/>
       </Modal>
 
       <Drawer 

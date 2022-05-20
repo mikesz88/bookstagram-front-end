@@ -1,5 +1,9 @@
 export const theme = {
   colors: {
-    primaryText: "red"
+    lightBlue: "#88C9EF",
+    neutralBlue: "#2C3DBD",
+    darkBlue: "#3E1BED",
+    salmon: "#FE978A",
+    orange: "FF6F50"
   }
 }
