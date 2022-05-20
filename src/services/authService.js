@@ -199,7 +199,7 @@ export class AuthService extends User {
       "password": newPassword
     }
     try {
-      await axios.put(`${Endpoints.resetPassword}/${resettoken}`, body, { headers });
+      await axios.put(`${Endpoints.urlResetPassword}/${resettoken}`, body, { headers });
     } catch (error) {
       throw error;
     }

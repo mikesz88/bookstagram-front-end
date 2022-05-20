@@ -127,6 +127,7 @@ export const StyledImg = styled.img`
 export const StyledText = styled.div`
   width: 210px;
   font-size: 1.5rem;
+  z-index: 10;
 `;
 
 export const StyledSpan = styled.span`
@@ -203,4 +204,31 @@ export const StyledFormWrapper = styled.div`
 
 export const StyledFormQuestion = styled.div`
   font-size: 1.25rem;
+`;
+
+export const StyledLargeBubbleWrapper = styled.div`
+  position: absolute;
+  width: 400px;
+  right: 0;
+
+  @media (max-width: 950px) {
+    width: 200px;
+    left: 50%;
+    right: 0;
+    top: -180px;
+  }
+`;
+
+export const StyledSmallBubbleWrapper = styled.div`
+  position: absolute;
+  width: 400px;
+  right: -10rem;
+  top: -8rem;
+
+  @media (max-width: 950px) {
+    width: 200px;
+    left: 60%;
+    right: 0%;
+    top: -250px;
+  }
 `;

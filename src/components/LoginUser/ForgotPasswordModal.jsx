@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react'
 import { UserContext } from '../../App';
-import { Form, Modal, Button, Input } from 'antd';
+import { Form, Modal, Button, Input, Result } from 'antd';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { Notification } from '../Notification/Notification';
 import {
@@ -13,12 +13,13 @@ import {
 
 const { confirm } = Modal;
 
-const ForgotPasswordModal = ({ form }) => {
+const ForgotPasswordModal = ({ form, closeParentModal }) => {
   const { authService } = useContext(UserContext);
   const [resetModal, setResetModal] = useState(false);
   const [email, setEmail] = useState('');
   const [forgotQuestion, setForgotQuestion] = useState('');
   const [resetToken, setResetToken] = useState('');
+  const [successResult, setSuccessResult] = useState(false);
 
   const handleQuestion = () => {
     console.log('handle question');
@@ -66,6 +67,24 @@ const ForgotPasswordModal = ({ form }) => {
 
   const resetSubmit = (values) => {
     console.log(values, 'values');
+    const { newPassword } = values;
+    authService.resetPassword(resetToken, newPassword)
+      .then(() => {
+        Notification('success', 'Password Reset', 'Your password has been changed. Please login with your new password.')
+        setSuccessResult(!successResult);
+        setResetModal(!resetModal);
+      })
+      .catch(err => {
+        Notification('error', err.response.data.error, 'There was an error. Please try again.')
+        console.log(err);
+      })
+    
+  }
+
+  const closeModals = () => {
+    setResetModal(false);
+    setSuccessResult(false);
+    closeParentModal(false);
   }
 
   const forgotPasswordForm = (
@@ -161,6 +180,7 @@ const ForgotPasswordModal = ({ form }) => {
             name="confirm"
             dependencies={['newPassword']}
             hasFeedback
+            style={{width: '100%'}}
             rules={[
               {
                 required: true,
@@ -187,6 +207,20 @@ const ForgotPasswordModal = ({ form }) => {
             </Button>
           </Form.Item>
         </FormStyled>
+      </Modal>
+
+      <Modal
+        visible={successResult}
+        onCancel={closeModals}
+        footer={[
+          <Button key='close' type='primary' onClick={closeModals} >Close</Button>
+        ]}
+      >
+        <Result 
+          status='success'
+          title='Successfully Changed Password'
+          subTitle='You have successfully change your password. Please click close out and sign in again with your new password. Close the button below to get back to the login screen.'
+        />
       </Modal>
     </>
   )

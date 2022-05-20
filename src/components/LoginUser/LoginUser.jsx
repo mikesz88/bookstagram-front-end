@@ -21,6 +21,8 @@ import {
   StyledPhoneContainer,
   StyledBookPhone,
   StyledUIPhone,
+  StyledLargeBubbleWrapper,
+  StyledSmallBubbleWrapper,
 } from './styles';
 import { StyledButton } from '../ReusableCSS';
 import Logo from '../../images/logo.svg';
@@ -102,12 +104,12 @@ const LoginUser = () => {
           <StyledUIPhone>
             <StyledImg src={UIPhone} alt="" />
           </StyledUIPhone>
-          <div style={{position: 'absolute', width: '400px', right: '0'}}>
-            <img src={LargeBubble} alt="" style={{width: '100%'}} />
-          </div>
-          <div style={{position: 'absolute', width: '400px', right: '-10rem', top: '-8rem'}}>
-            <img style={{width: '100%'}} src={SmallBubble} alt="" />
-          </div>
+          <StyledLargeBubbleWrapper>
+            <StyledImg src={LargeBubble} alt="largeBubble" />
+          </StyledLargeBubbleWrapper>
+          <StyledSmallBubbleWrapper>
+            <StyledImg src={SmallBubble} alt="smallBubble" />
+          </StyledSmallBubbleWrapper>
           </StyledPhoneContainer>
         </BackgroundContainer>
         <FormStyled
@@ -175,7 +177,7 @@ const LoginUser = () => {
           <Button key="1" onClick={handleCancel}>Cancel</Button>,
         ]}
       >
-        <ForgotPasswordModal form={form} />
+        <ForgotPasswordModal closeParentModal={handleCancel} form={form} />
       </Modal>
     </>
   );

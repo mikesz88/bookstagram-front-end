@@ -1,15 +1,11 @@
 Login Screen To Do List:
-1. Finish the reset password modal
-2. Change the basic css to Styled Components
-3. Media Query the Bubbles
-4. Check one more time on the warning of forgot question and answer modal
-
-Redesign Register Screen
-
-Redesign Home Screen
-
-Code Clean Up
-
+1. Change the basic css to Styled Components in PasswordModal
+2. Redesign Register Screen (Working on Inputs next)
+3. Home Page Redesign
+4. Code Clean Up
+5. Check one more time on the warning of forgot question and answer modal
+6. ReadMe Redo
+7. Deploy backend and front end
 
 
 
