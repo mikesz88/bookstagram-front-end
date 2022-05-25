@@ -1,9 +1,6 @@
 Login Screen To Do List:
-1. Home Page
-   - Finish mobile responsive
-    - Needs to update the Filter when under 670 (Look at StyledUlWrapper)
-2. Code Clean Up
-  - Styled Components
+1. Code Clean Up
+  - Styled Components (Home, LoginUser, BookCard, (PersonalInformation, UpdatePassword, UpdateForgotQA have the same button styles plus a couple more styles needed))
   - Refactor
   - Delete the console.logs
   - Add Notifications to update any time the feed needs updating (upload or delete)

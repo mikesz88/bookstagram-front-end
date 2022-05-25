@@ -3,6 +3,12 @@ import React,{ useState, useEffect, useContext } from 'react'
 import { UserContext } from '../../../App.js';
 import { StyledLoginButton } from '../../ReusableCSS/index.js';
 import BookCard from './BookCard/BookCard.jsx';
+import { 
+  StyledCardWrapper, 
+  StyledDivWrapper, 
+  StyledFilterContainer, 
+  StyledInput 
+} from './styles.js';
 
 
 const FilterBar = () => {
@@ -31,23 +37,20 @@ const FilterBar = () => {
   }
 
   return (
-    <div style={{width: '100%'}}>
-        <div style={{zIndex: '9', position: 'fixed', top: '20%', left: '0', right: '0', backgroundColor: '#F8F3F3',  display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem 0' }}>
-          <Input style={{ width: '300px', marginBottom: '1rem'}} type="text" name="filter" onChange={handleChange} />
+    <StyledDivWrapper>
+        <StyledFilterContainer>
+          <StyledInput type="text" name="filter" onChange={handleChange} />
           <StyledLoginButton onClick={refreshBookList}>Refresh</StyledLoginButton>
-        </div>
-      <div style={{width: '100%', marginTop: '7rem'}}>
-        <div>
-          {bookList
-            .filter(book => searchWords(book.title.toLowerCase(), filterWord))
-            .map((data, index) => (
-              <BookCard data={data}  key={index} />
-              
-              ))
-          } 
-        </div>
-      </div>
-    </div>
+        </StyledFilterContainer>
+      <StyledCardWrapper>
+        {bookList
+          .filter(book => searchWords(book.title.toLowerCase(), filterWord))
+          .map((data, index) => (
+            <BookCard data={data}  key={index} />
+            ))
+        } 
+      </StyledCardWrapper>
+    </StyledDivWrapper>
   )
 }
 

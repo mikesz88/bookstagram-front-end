@@ -125,6 +125,10 @@ export const LoginTextDiv = styled.div`
   @media (max-width: 950px) {
     margin: 2rem;
   }
+
+  @media (max-width: 426px) {
+    margin-top: -5rem;
+  }
 `;
 
 export const LoginSpanStyled = styled.span`
@@ -137,6 +141,10 @@ export const SignUpTextDiv = styled.div`
   font-size: 1.5rem;
   text-align: center;
   width: 300px;
+
+  @media (max-width: 426px) {
+    margin-top: -5rem;
+  }
 `;
 
 export const SignUpSpanStyled = styled.span`
@@ -181,12 +189,18 @@ export const StyledLogoTextDiv = styled.div`
   }
 
   @media (max-width: 426px) {
+    flex-direction: column;
     margin-top: -1rem;
+    padding-bottom: 10rem;
   }
 `;
 
 export const StyledImgWrapper = styled.div`
   width: 250px;
+
+  @media (max-width: 426px) {
+  margin-bottom: -4rem;
+  }
 `;
 
 export const StyledImg = styled.img`
@@ -197,6 +211,11 @@ export const StyledText = styled.div`
   width: 210px;
   font-size: 1.5rem;
   z-index: 10;
+
+  @media (max-width: 426px) {
+    width: 300px;
+    text-align: center;
+  }
 `;
 
 export const StyledSpan = styled.span`
