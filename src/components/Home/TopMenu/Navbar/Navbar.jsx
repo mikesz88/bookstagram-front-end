@@ -1,10 +1,10 @@
 import React, { useState, useContext } from 'react'
-import { Button, Modal, Drawer, Form } from 'antd';
+import { Modal, Drawer, Form } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { UserContext } from '../../../App';
+import { UserContext } from '../../../../App';
+import { StyledLoginButton } from '../../../ReusableCSS';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
-import { Notification } from '../../Notification/Notification';
+import { Notification } from '../../../Notification/Notification';
 import UpdatePersonalInformation from './UpdatePersonalInformation/UpdatePersonalInformation';
 import UpdatePassword from './UpdatePassword/UpdatePassword';
 import UpdateForgotQA from './UpdateForgotQA/UpdateForgotQA';
@@ -12,7 +12,7 @@ import UploadModal from './UploadModal/UploadModal';
 
 const { confirm } = Modal;
 
-const HomeNavbar = () => {
+const Navbar = () => {
   const [visibleModal, setVisibleModal] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [visibleDrawer, setVisibleDrawer] = useState(false);
@@ -23,14 +23,11 @@ const HomeNavbar = () => {
   const navigate = useNavigate();
   const [form] = Form.useForm();
 
-
-
   const showModal = () => setVisibleModal(!visibleModal);
   const showDrawer = () => setVisibleDrawer(!visibleDrawer)
   const showPersonalDrawer = () => setVisiblePersonalDrawer(!visiblePersonalDrawer);
   const showPasswordDrawer = () => setVisiblePasswordDrawer(!visiblePasswordDrawer);
   const showForgotDrawer = () => setVisibleForgotDrawer(!visibleForgotDrawer);
-
 
   const handleOk = () =>{
     setConfirmLoading(false);
@@ -104,76 +101,72 @@ const HomeNavbar = () => {
     })
   };
 
+
   return (
-    <>
-      <nav style={{ maxWidth: 1200, margin: 'auto' }}>
-        <ul style={{ display: 'flex', justifyContent: 'space-between' }}>
+    <div>
+      <nav>
+        <ul style={{ display: 'flex', justifyContent: 'space-evenly' }}>
           <li>
-          <Button><Link to="/home">Home</Link></Button>
+            <StyledLoginButton onClick={showModal}>Upload Photo</StyledLoginButton>
           </li>
-          <div style={{ display: 'flex', width: 250, justifyContent: 'space-evenly'}}>
-            <li>
-              <Button onClick={showModal}>Upload Photo</Button>
-            </li>
-            <li>
-              <Button onClick={showDrawer}>Profile</Button>
-            </li>
-            <li>
-              <Button onClick={logout}>Logout</Button>
-            </li>
-          </div>
+          <li>
+            <StyledLoginButton onClick={showDrawer}>Profile</StyledLoginButton>
+          </li>
+          <li>
+            <StyledLoginButton onClick={logout}>Logout</StyledLoginButton>
+          </li>
         </ul>
       </nav>
 
       <Modal // Upload Photo
-        title="Upload Photo"
-        visible={visibleModal}
-        onOk={handleOk}
-        confirmLoading={confirmLoading}
-        onCancel={handleModalCancel}
-        destroyOnClose
-      >
-        <UploadModal showModal={showModal} form={form}/>
-      </Modal>
+          title="Upload Photo"
+          visible={visibleModal}
+          onOk={handleOk}
+          confirmLoading={confirmLoading}
+          onCancel={handleModalCancel}
+          destroyOnClose
+        >
+          <UploadModal showModal={showModal} form={form}/>
+        </Modal>
 
-      <Drawer 
-        title="Profile" 
-        placement="right" 
-        width={320}
-        onClose={showDrawer} 
-        visible={visibleDrawer}
-      >
-        <Button onClick={showPersonalDrawer} >Update Personal Information</Button>
-        <Drawer
-            title="Update Personal Information"
-            width={320}
-            onClose={showPersonalDrawer}
-            visible={visiblePersonalDrawer}
+        <Drawer 
+          title="Profile" 
+          placement="right" 
+          width={320}
+          onClose={showDrawer} 
+          visible={visibleDrawer}
         >
-          <UpdatePersonalInformation close={showPersonalDrawer} />
+          <StyledLoginButton style={{ margin: '1rem auto', width: '260px' }} onClick={showPersonalDrawer}>Update Personal Information</StyledLoginButton>
+          <Drawer
+              title="Update Personal Information"
+              width={320}
+              onClose={showPersonalDrawer}
+              visible={visiblePersonalDrawer}
+          >
+            <UpdatePersonalInformation close={showPersonalDrawer} />
+          </Drawer>
+          <StyledLoginButton style={{ margin: '1rem auto', width: '260px' }} onClick={showPasswordDrawer}>Update Password</StyledLoginButton>
+          <Drawer
+              title="Update Password"
+              width={320}
+              onClose={showPasswordDrawer}
+              visible={visiblePasswordDrawer}
+          >
+            <UpdatePassword close={showPasswordDrawer} />
+          </Drawer>
+          <StyledLoginButton style={{ margin: '1rem auto', width: '260px' }} onClick={showForgotDrawer}>Update Forgot Question and Answer</StyledLoginButton>
+          <Drawer
+              title="Update Forgot Question and Answer"
+              width={320}
+              onClose={showForgotDrawer}
+              visible={visibleForgotDrawer}
+          >
+            <UpdateForgotQA close={showForgotDrawer} />
+          </Drawer>
+          <StyledLoginButton style={{ margin: '1rem auto', width: '260px' }} onClick={deleteAccount}>Delete Account</StyledLoginButton>
         </Drawer>
-        <Button onClick={showPasswordDrawer} >Update Password</Button>
-        <Drawer
-            title="Update Password"
-            width={320}
-            onClose={showPasswordDrawer}
-            visible={visiblePasswordDrawer}
-        >
-          <UpdatePassword close={showPasswordDrawer} />
-        </Drawer>
-        <Button onClick={showForgotDrawer} >Update Forgot Question and Answer</Button>
-        <Drawer
-            title="Update Forgot Question and Answer"
-            width={320}
-            onClose={showForgotDrawer}
-            visible={visibleForgotDrawer}
-        >
-          <UpdateForgotQA close={showForgotDrawer} />
-        </Drawer>
-        <Button onClick={deleteAccount} >Delete Account</Button>
-      </Drawer>
-    </>
+    </div>
   )
 }
 
-export default HomeNavbar
+export default Navbar

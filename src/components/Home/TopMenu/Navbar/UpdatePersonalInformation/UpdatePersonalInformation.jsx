@@ -1,8 +1,8 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { Input, Button, Form, Select } from 'antd';
-import { FormStyled } from './styles';
-import { UserContext } from '../../../../App';
-import { Notification } from '../../../Notification/Notification';
+import { StyledFormDrawer as FormStyled } from '../../../../ReusableCSS';
+import { UserContext } from '../../../../../App';
+import { Notification } from '../../../../Notification/Notification';
 
 const UpdatePersonalInformation = ({ close }) => {
   const { authService } = useContext(UserContext);
@@ -77,19 +77,19 @@ const UpdatePersonalInformation = ({ close }) => {
     <>
       <div>
         <div>
-          Current First Name: 
+          <strong>Current First Name: </strong>
           <div>{firstName}</div>
         </div>
         <div>
-          Current Last Name: 
+          <strong>Current Last Name: </strong>
           <div>{lastName}</div>
         </div>        
         <div>
-          Current Email: 
+          <strong>Current Email: </strong>
           <div>{email}</div>
         </div>        
         <div>
-          Current Role: 
+          <strong>Current Role: </strong>
           <div>
             {`${role[0].toUpperCase()}${role.slice(1).toLowerCase()}`}
             </div>

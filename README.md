@@ -1,11 +1,16 @@
 Login Screen To Do List:
-1. Change the basic css to Styled Components in PasswordModal
-2. Redesign Register Screen (Working on Inputs next)
-3. Home Page Redesign
-4. Code Clean Up
-5. Check one more time on the warning of forgot question and answer modal
-6. ReadMe Redo
-7. Deploy backend and front end
+1. Home Page
+   - Finish mobile responsive
+    - Needs to update the Filter when under 670 (Look at StyledUlWrapper)
+2. Code Clean Up
+  - Styled Components
+  - Refactor
+  - Delete the console.logs
+  - Add Notifications to update any time the feed needs updating (upload or delete)
+3. Check one more time on the warning of forgot question and answer modal
+4. ReadMe Redo
+5. Check for Unit Testing?
+6. Deploy backend and front end
 
 
 

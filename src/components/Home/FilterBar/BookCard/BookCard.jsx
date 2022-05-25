@@ -1,4 +1,4 @@
-import { Button, Card, Modal } from 'antd';
+import { Card, Modal } from 'antd';
 import { FullscreenOutlined, FullscreenExitOutlined, DeleteOutlined } from '@ant-design/icons';
 import React, { useState, useEffect, useContext } from 'react';
 import { UserContext } from '../../../../App';
@@ -13,9 +13,10 @@ const BookCard = ({ data }) => {
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
+    console.log('book User Id', user);
     authService.findUserName(user)
       .then(res => setName(`${res.data.data.firstName} ${res.data.data.lastName}`))
-  }, []);
+  }, [authService, user]);
 
 const handleModal = () => setShowModal(!showModal);
 
@@ -24,10 +25,10 @@ const handleOk = () => setShowModal(!showModal);
 const handleCancel = () => setShowModal(!showModal);
 
 const handleDelete = () => {
-  console.log(data.id);
-    bookService.deleteImageInS3(authService.bearerHeader, data.s3Key)
+  console.log(data);
+  bookService.deleteBook(authService.bearerHeader, data.id)
     .then(() => {
-      bookService.deleteBook(authService.bearerHeader, data.id)
+      bookService.deleteImageInS3(authService.bearerHeader, data.s3Key)
       .then(() => {
         console.log('successful')
         bookService.bookList = bookService.bookList.filter((book) => book.id !== data.id)
@@ -46,11 +47,11 @@ const handleDelete = () => {
 };
 
   return (
-    <>
+    <div style={{ margin: '0 auto 1.5rem auto', maxWidth: '500px' }}>
       <Card
         hoverable
-        style={{ width: 300 }}
-        cover={<img style={{width: 300, height: 300}} alt="Book Cover" src={photoUrl} />}
+        style={{ maxWidth: 500, cursor: 'default' }}
+        cover={<img style={{maxWidth: 500, maxHeight: 500}} alt="Book Cover" src={photoUrl} />}
         actions={[
           <FullscreenOutlined onClick={handleModal} key="setting" />
         ]}
@@ -79,7 +80,7 @@ const handleDelete = () => {
         </Card>
       </div>
     </Modal>
-  </>
+  </div>
   )
 }
 

@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Form, Input, Button, Modal } from 'antd';
+import { Form, Button, Modal } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../../App';
 import { Notification } from '../Notification/Notification';
@@ -23,8 +23,8 @@ import {
   StyledUIPhone,
   StyledLargeBubbleWrapper,
   StyledSmallBubbleWrapper,
-} from './styles';
-import { StyledButton } from '../ReusableCSS';
+  StyledButton
+} from '../ReusableCSS';
 import Logo from '../../images/logo.svg';
 import BookPhone from '../../images/home-screen-phone-books-pic.svg';
 import UIPhone from '../../images/home-screen-phone-UI.svg';
@@ -53,11 +53,6 @@ const LoginUser = () => {
     })
   };
 
-  const handleOk = () => {
-    console.log('handle ok');
-    form.submit();
-    setShowModal(!showModal);
-  };
 
   const handleCancel = () => {
     console.log('handle cancel');
@@ -85,8 +80,8 @@ const LoginUser = () => {
   return (
     <>
       <BackgroundFlexDiv>
-        {squares}
         <BackgroundContainer>
+          {squares}
           <StyledLogoTextDiv>
             <StyledImgWrapper>
               <StyledImg src={Logo} alt="Logo"/>

@@ -34,6 +34,7 @@ export class BookService {
           id: book._id,
           title: book.title,
           photoUrl: book.photoUrl,
+          s3Key: book.s3Key,
           user: book.user,
           createdAt: book.createdAt,
         }
@@ -96,8 +97,7 @@ export class BookService {
       }
       this.setBookList([filteredBook, ...this.bookList])
       this.resetS3TempInfo();
-    } catch (error) 
-    {
+    } catch (error) {
       throw error;
     }
   }

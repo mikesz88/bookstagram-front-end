@@ -1,8 +1,11 @@
 import React, { useState, useContext } from 'react';
 import { Input, Button, Form } from 'antd';
-import { FormStyled, PasswordRulesDiv } from './styles';
-import { UserContext } from '../../../../App';
-import { Notification } from '../../../Notification/Notification';
+import { 
+  StyledFormDrawer as FormStyled,
+  StyledPasswordRulesDivDrawer as PasswordRulesDiv
+} from '../../../../ReusableCSS';
+import { UserContext } from '../../../../../App';
+import { Notification } from '../../../../Notification/Notification';
 
 
 const UpdatePassword = ({ close }) => {

@@ -1,9 +1,9 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Input, Button, Select, Form } from 'antd';
-import { FormStyled } from './styles';
-import { UserContext } from '../../../../App';
-import { Notification } from '../../../Notification/Notification';
-import { forgotPasswordQuestions } from '../../../../constants/forgotPasswordQuestions';
+import { StyledFormDrawer as FormStyled } from '../../../../ReusableCSS';
+import { UserContext } from '../../../../../App';
+import { Notification } from '../../../../Notification/Notification';
+import { forgotPasswordQuestions } from '../../../../../constants/forgotPasswordQuestions';
 
 const UpdateForgotQA = ({ close }) => {
   const { authService } = useContext(UserContext);

@@ -1,14 +1,16 @@
 import React from 'react'
 import FilterBar from './FilterBar/FilterBar'
-import HomeNavbar from './HomeNavbar/HomeNavbar'
+import TopMenu from './TopMenu/TopMenu'
 
 const Home = () => {
   
   return (
-    <>
-      <HomeNavbar />
-      <FilterBar />
-    </>
+    <div style={{ backgroundColor: '#F8F3F3'}}>
+      <TopMenu />
+      <div style={{ display: 'flex', maxWidth: '1200px', marginLeft: 'auto', marginRight: 'auto', paddingLeft: '15px', paddingRight: '15px' }}>
+        <FilterBar />
+      </div>
+    </div>
   )
 }
 

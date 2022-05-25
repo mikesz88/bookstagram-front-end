@@ -1,8 +1,8 @@
 import React, { useState, useContext } from 'react'
 import { Input, Form, Upload, Spin } from 'antd';
 import { InboxOutlined } from '@ant-design/icons';
-import { UserContext } from '../../../../App';
-import { Notification } from '../../../Notification/Notification';
+import { UserContext } from '../../../../../App';
+import { Notification } from '../../../../Notification/Notification';
 
 const { Dragger } = Upload;
 
@@ -13,6 +13,7 @@ const UploadModal = ({ showModal, form }) => {
   const onSubmit = values => {
     console.log(values, 'values')
     const { bookTitle } = values;
+    console.log('authServiceId', authService.id);
     setIsLoading(true);
       console.log(bookService.bookList);
       bookService.createNewBook(
@@ -25,6 +26,7 @@ const UploadModal = ({ showModal, form }) => {
       .then(() => {
         console.log(bookService.bookList);
         Notification('success', 'Upload Successful', 'Your book title and image has been uploaded.')
+        Notification('info', 'Please Refresh', 'Click the refresh button to see your post in the book feed!')
         showModal();
         form.resetFields();
         setIsLoading(false);
@@ -124,7 +126,7 @@ const UploadModal = ({ showModal, form }) => {
                   <InboxOutlined />
                 </p>
                 <p className="ant-upload-text">Click or drag file to this area to upload</p>
-                <p className="ant-upload-hint">Support for a single or bulk upload.</p>
+                <p className="ant-upload-hint">Support for a single upload.</p>
               </Dragger>
             </Form.Item>
           </Form.Item>

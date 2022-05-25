@@ -4,6 +4,8 @@ export const theme = {
     neutralBlue: "#2C3DBD",
     darkBlue: "#3E1BED",
     salmon: "#FE978A",
-    orange: "FF6F50"
+    orange: "FF6F50",
+    homeBackground: "#F8F3F3",
+    white: "#FFF"
   }
 }

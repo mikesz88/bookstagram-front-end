@@ -8,8 +8,9 @@ import {
   InputStyled,
   StyledLoginButton,
   StyledFormWrapper,
-  StyledFormQuestion
-} from './styles';
+  StyledFormQuestion,
+  StyledForgetModalDiv
+} from '../ReusableCSS';
 
 const { confirm } = Modal;
 
@@ -129,10 +130,10 @@ const ForgotPasswordModal = ({ form, closeParentModal }) => {
 
   return (
     <>
-      <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+      <StyledForgetModalDiv>
         <InputStyled type="email" onChange={handleQuestionChange} placeholder="Write your email"/>
         <StyledLoginButton size='large' onClick={handleQuestion} >Find Question</StyledLoginButton>
-      </div>
+      </StyledForgetModalDiv>
       {handleQuestion ? forgotPasswordForm : ''}
 
       <Modal
