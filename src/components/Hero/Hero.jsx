@@ -62,9 +62,17 @@ const Hero = () => {
           href="https://www.michaelsanchez.page"
           rel="noreferrer"
         >
-          &#160;Michael Sanchez.&#160;
+          &#160;Michael Sanchez
         </a>
-        Designs by Kristine Johnson
+        .&#160;Designed by
+        <a
+          href="https://www.codingwithkristine.com"
+          target="_blank"
+          rel="noreferrer"
+        >
+          &#160;Kristine Johnson
+        </a>
+        .
       </StyledFooter>
     </>
   );
