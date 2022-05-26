@@ -41,3 +41,15 @@ export const ButtonWrapper = styled.div`
   flex-wrap: wrap;
   justify-content: space-evenly;
 `;
+
+export const StyledFooter = styled.footer`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  flex-wrap: wrap;
+  padding-bottom: 1rem;
+`;

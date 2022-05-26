@@ -9,6 +9,7 @@ import {
   TextWrapper,
   SpanBold,
   ButtonWrapper,
+  StyledFooter,
 } from './styles';
 import { StyledButton } from '../ReusableCSS';
 
@@ -29,30 +30,43 @@ const Hero = () => {
   );
 
   return (
-    <BackgroundContainer>
-      {squares}
-      <DivWrapper>
-        <ImgWrapper>
-          <LogoImg src={logo} alt="logo" />
-        </ImgWrapper>
-        <TextWrapper>
-          <em>
-            Connect through{' '}
-            <SpanBold style={{ fontWeight: 'bold' }}>
-              the world of books
-            </SpanBold>
-          </em>
-        </TextWrapper>
-        <ButtonWrapper>
-          <StyledButton type="primary">
-            <Link to="/login">Login</Link>
-          </StyledButton>
-          <StyledButton type="primary">
-            <Link to="/register">Register User</Link>
-          </StyledButton>
-        </ButtonWrapper>
-      </DivWrapper>
-    </BackgroundContainer>
+    <>
+      <BackgroundContainer>
+        {squares}
+        <DivWrapper>
+          <ImgWrapper>
+            <LogoImg src={logo} alt="logo" />
+          </ImgWrapper>
+          <TextWrapper>
+            <em>
+              Connect through{' '}
+              <SpanBold style={{ fontWeight: 'bold' }}>
+                the world of books
+              </SpanBold>
+            </em>
+          </TextWrapper>
+          <ButtonWrapper>
+            <StyledButton type="primary">
+              <Link to="/login">Login</Link>
+            </StyledButton>
+            <StyledButton type="primary">
+              <Link to="/register">Register User</Link>
+            </StyledButton>
+          </ButtonWrapper>
+        </DivWrapper>
+      </BackgroundContainer>
+      <StyledFooter>
+        {'Developed by '}
+        <a
+          target="_blank"
+          href="https://www.michaelsanchez.page"
+          rel="noreferrer"
+        >
+          &#160;Michael Sanchez.&#160;
+        </a>
+        Designs by Kristine Johnson
+      </StyledFooter>
+    </>
   );
 };
 
