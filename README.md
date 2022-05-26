@@ -1,9 +1,4 @@
-Login Screen To Do List:
-1. Check one more time on the warning of forgot question and answer modal
-2. ReadMe Redo
-3. Deploy backend and front end
-
-
+You may the live website [here](https://sanchezbookstagram.netlify.app/)!
 
 # Getting Started with Create React App
 
