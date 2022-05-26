@@ -3,17 +3,16 @@ import { Form, Input, Button, Select } from 'antd';
 import img from '../../images/backgroundWhite.png';
 
 export const StyledButton = styled(Button)`
-  width: ${({larger}) => larger ? `250px` : `125px`};
-  height: ${({larger}) => larger ? `50px` : ``};
-  background-color: ${({theme}) => theme.colors.darkBlue};
-  border-color: ${({theme}) => theme.colors.darkBlue};
+  width: ${({ larger }) => (larger ? `250px` : `125px`)};
+  height: ${({ larger }) => (larger ? `50px` : ``)};
+  background-color: ${({ theme }) => theme.colors.darkBlue};
+  border-color: ${({ theme }) => theme.colors.darkBlue};
   border-radius: 25px;
 
   &:hover {
-    background-color: ${({theme}) => theme.colors.lightBlue};
-    border-color: ${({theme}) => theme.colors.lightBlue};
-
-    }
+    background-color: ${({ theme }) => theme.colors.lightBlue};
+    border-color: ${({ theme }) => theme.colors.lightBlue};
+  }
 `;
 
 export const BackgroundFlexDiv = styled.div`
@@ -47,7 +46,7 @@ export const StyledFormDrawer = styled(Form)`
 `;
 
 export const FormItemStyled = styled(Form.Item)`
-  margin-bottom: ${({register}) => register ? '0.1rem' : '1rem'};
+  margin-bottom: ${({ register }) => (register ? '0.1rem' : '1rem')};
   width: 300px;
 `;
 
@@ -85,7 +84,8 @@ export const SelectStyled = styled(Select)`
   &.ant-select:not(.ant-select-customize-input) .ant-select-selector {
     border: none;
   }
-  &.ant-select-focused:not(.ant-select-disabled).ant-select:not(.ant-select-customize-input) .ant-select-selector {
+  &.ant-select-focused:not(.ant-select-disabled).ant-select:not(.ant-select-customize-input)
+    .ant-select-selector {
     border: none;
   }
 `;
@@ -102,14 +102,15 @@ export const InputPasswordStyled = styled(Input.Password)`
   &:focus {
     box-shadow: none;
   }
-  &&.ant-input-affix-wrapper > input.ant-input { 
+  &&.ant-input-affix-wrapper > input.ant-input {
     font-size: 1.25rem;
   }
 
-  &&.ant-input-affix-wrapper-status-error:not(.ant-input-affix-wrapper-disabled):not(.ant-input-affix-wrapper-borderless).ant-input-affix-wrapper, .ant-input-affix-wrapper-status-error:not(.ant-input-affix-wrapper-disabled):not(.ant-input-affix-wrapper-borderless).ant-input-affix-wrapper:hover {
+  &&.ant-input-affix-wrapper-status-error:not(.ant-input-affix-wrapper-disabled):not(.ant-input-affix-wrapper-borderless).ant-input-affix-wrapper,
+  .ant-input-affix-wrapper-status-error:not(.ant-input-affix-wrapper-disabled):not(.ant-input-affix-wrapper-borderless).ant-input-affix-wrapper:hover {
     box-shadow: none;
     background: #fff;
-    border-bottom-color: #ff4d4f; 
+    border-bottom-color: #ff4d4f;
   }
 
   &&.ant-input-affix-wrapper-focused {
@@ -199,7 +200,7 @@ export const StyledImgWrapper = styled.div`
   width: 250px;
 
   @media (max-width: 426px) {
-  margin-bottom: -4rem;
+    margin-bottom: -4rem;
   }
 `;
 
@@ -274,16 +275,16 @@ export const StyledUIPhone = styled.div`
 `;
 
 export const StyledLoginButton = styled(Button)`
-  background-color: ${({theme}) => theme.colors.darkBlue};
-  border-color: ${({theme}) => theme.colors.darkBlue};
+  background-color: ${({ theme }) => theme.colors.darkBlue};
+  border-color: ${({ theme }) => theme.colors.darkBlue};
   border-radius: 25px;
   color: #fff;
 
   &:hover {
-    background-color: ${({theme}) => theme.colors.lightBlue};
-    border-color: ${({theme}) => theme.colors.lightBlue};
+    background-color: ${({ theme }) => theme.colors.lightBlue};
+    border-color: ${({ theme }) => theme.colors.lightBlue};
     color: #fff;
-    }
+  }
 `;
 
 export const StyledFormWrapper = styled.div`
@@ -325,4 +326,9 @@ export const StyledForgetModalDiv = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+`;
+
+export const StyledButtonWrapper = styled.div`
+  display: flex;
+  justify-content: space-evenly;
 `;

@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const StyledBackgroundContainer = styled.div`
-  background-color: ${({theme}) => theme.colors.white};
+  background-color: ${({ theme }) => theme.colors.white};
   position: sticky;
   top: 0;
   z-index: 10;
@@ -30,6 +30,10 @@ export const StyledUlWrapper = styled.ul`
 export const StyledLiLeftWrapper = styled.li`
   display: flex;
   align-items: center;
+
+  @media (max-width: 426px) {
+    display: none;
+  }
 `;
 
 export const StyledImgWrapper = styled.div`
@@ -39,18 +43,22 @@ export const StyledImgWrapper = styled.div`
 export const StyledLiRightWrapper = styled.li`
   width: 300px;
   font-size: 1.5rem;
-  color: ${({theme}) => theme.colors.neutralBlue};
+  color: ${({ theme }) => theme.colors.neutralBlue};
   padding-bottom: 1rem;
+
+  @media (max-width: 426px) {
+    padding-top: 1rem;
+  }
 `;
 
 export const StyledTitleDiv = styled.div`
   font-size: 1.5rem;
-  color: ${({theme}) => theme.colors.neutralBlue};
+  color: ${({ theme }) => theme.colors.neutralBlue};
   padding-bottom: 1rem;
 `;
 
 export const StyledLink = styled(Link)`
-  color: ${({theme}) => theme.colors.neutralBlue};
+  color: ${({ theme }) => theme.colors.neutralBlue};
 `;
 
 export const StyledWelcomeDiv = styled.div`

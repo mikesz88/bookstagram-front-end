@@ -1,4 +1,4 @@
-export class User {
+class User {
   constructor() {
     this.id = '';
     this.firstName = '';
@@ -10,18 +10,12 @@ export class User {
   }
 
   setIsLoggedIn(loggedIn) {
-    this.isLoggedIn = loggedIn
-  };
+    this.isLoggedIn = loggedIn;
+  }
 
   setUserData(userData) {
-    const { 
-      _id, 
-      firstName, 
-      lastName, 
-      email, 
-      role, 
-      forgotPasswordQuestion 
-    } = userData;
+    const { _id, firstName, lastName, email, role, forgotPasswordQuestion } =
+      userData;
 
     this.id = _id;
     this.firstName = firstName;
@@ -30,5 +24,6 @@ export class User {
     this.role = role;
     this.forgotPasswordQuestion = forgotPasswordQuestion;
   }
-
 }
+
+export default User;

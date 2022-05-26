@@ -1,7 +1,8 @@
-import axios from "axios";
-import { Endpoints } from "../constants/endpoints";
+/* eslint-disable no-useless-catch */
+import axios from 'axios';
+import Endpoints from '../constants/endpoints';
 
-export class BookService {
+class BookService {
   constructor() {
     this.bookList = [];
     this.s3Url = '';
@@ -29,17 +30,18 @@ export class BookService {
     try {
       const response = await axios.get(Endpoints.urlGetBooks);
       this.setBookList([]);
-      response.data.data.forEach(book => {
+      response.data.data.forEach((book) => {
         const filteredBook = {
+          // eslint-disable-next-line no-underscore-dangle
           id: book._id,
           title: book.title,
           photoUrl: book.photoUrl,
           s3Key: book.s3Key,
           user: book.user,
           createdAt: book.createdAt,
-        }
-        this.setBookList([...this.bookList, filteredBook])
-      })
+        };
+        this.setBookList([...this.bookList, filteredBook]);
+      });
     } catch (error) {
       throw error;
     }
@@ -48,8 +50,8 @@ export class BookService {
   async createS3Url(headers) {
     try {
       const response = await axios.get(Endpoints.urlGetS3Url, { headers });
-      this.setS3Url(response.data.photoUrl)
-      this.setS3Key(response.data.key)
+      this.setS3Url(response.data.photoUrl);
+      this.setS3Key(response.data.key);
     } catch (error) {
       throw error;
     }
@@ -57,45 +59,44 @@ export class BookService {
 
   async deleteImageInS3(headers, key) {
     try {
-      return await axios.delete(`${Endpoints.urlDeleteImageInS3}/${key}`, { headers })
+      return await axios.delete(`${Endpoints.urlDeleteImageInS3}/${key}`, {
+        headers,
+      });
     } catch (error) {
-      throw error
+      throw error;
     }
   }
 
   async uploadImageToS3(url, file) {
     try {
       await fetch(url, {
-        method: "PUT",
+        method: 'PUT',
         headers: {
-          "Content-Type": "multipart/form-data"
+          'Content-Type': 'multipart/form-data',
         },
-        body: file
-      })
+        body: file,
+      });
     } catch (error) {
       throw error;
     }
   }
 
   async createNewBook(url, title, key, headers, userId) {
-    console.log(url, 'url');
-    console.log(headers, 'headers');
-    console.log(key, 'key');
     const body = {
-      "title": title,
-      "photoUrl": url.split('?')[0],
-      "s3Key": key
-    }
+      title,
+      photoUrl: url.split('?')[0],
+      s3Key: key,
+    };
     try {
-      await axios.post(Endpoints.urlCreateBook, body, { headers })
+      await axios.post(Endpoints.urlCreateBook, body, { headers });
       const filteredBook = {
         title,
         photoUrl: url.split('?')[0],
         user: userId,
         s3Key: key,
         createdAt: Date.now(),
-      }
-      this.setBookList([filteredBook, ...this.bookList])
+      };
+      this.setBookList([filteredBook, ...this.bookList]);
       this.resetS3TempInfo();
     } catch (error) {
       throw error;
@@ -104,9 +105,13 @@ export class BookService {
 
   async deleteBook(headers, bookId) {
     try {
-      return await axios.delete(`${Endpoints.urlDeleteBook}/${bookId}`, { headers })
+      return await axios.delete(`${Endpoints.urlDeleteBook}/${bookId}`, {
+        headers,
+      });
     } catch (error) {
       throw error;
     }
   }
 }
+
+export default BookService;

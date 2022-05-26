@@ -1,8 +1,8 @@
 const BASE_URL = 'http://localhost:5000/api/v1';
 const URL_AUTH = `${BASE_URL}/auth`;
-const URL_BOOKS = `${BASE_URL}/books`
+const URL_BOOKS = `${BASE_URL}/books`;
 
-export const Endpoints = {
+const Endpoints = {
   urlLogin: `${URL_AUTH}/login`,
   urlRegister: `${URL_AUTH}/register`,
   urlGetUser: `${URL_AUTH}/me`,
@@ -20,4 +20,6 @@ export const Endpoints = {
   urlDeleteImageInS3: `${URL_BOOKS}/deletes3image`,
   urlCreateBook: `${URL_BOOKS}`,
   urlDeleteBook: `${URL_BOOKS}`,
-}
+};
+
+export default Endpoints;

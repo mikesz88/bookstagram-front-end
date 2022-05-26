@@ -8,10 +8,10 @@ export const StyledDivWrapper = styled.div`
 export const StyledFilterContainer = styled.div`
   z-index: 9;
   position: fixed;
-  top: 20%;
+  top: 9rem;
   left: 0;
   right: 0;
-  background-color: ${({theme}) => theme.colors.homeBackground};
+  background-color: ${({ theme }) => theme.colors.homeBackground};
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -19,8 +19,8 @@ export const StyledFilterContainer = styled.div`
   padding: 2rem 0;
 
   @media (max-width: 670px) {
-    top: 35%;
-
+    top: 6rem;
+    padding-top: 4rem;
   }
 `;
 

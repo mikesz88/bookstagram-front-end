@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import img from '../../images/background.png';
-import { Button } from 'antd';
 
 export const BackgroundContainer = styled.div`
   background-image: url(${img});
@@ -10,11 +9,11 @@ export const BackgroundContainer = styled.div`
 `;
 
 export const DivWrapper = styled.div`
-display: flex; 
-flex-direction: column; 
-align-items: center; 
-justify-content: center; 
-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
 `;
 
 export const LogoImg = styled.img`
@@ -33,7 +32,7 @@ export const TextWrapper = styled.div`
 `;
 
 export const SpanBold = styled.span`
-  color: ${({theme}) => theme.colors.darkBlue};
+  color: ${({ theme }) => theme.colors.darkBlue};
 `;
 
 export const ButtonWrapper = styled.div`

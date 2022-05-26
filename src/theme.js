@@ -1,11 +1,13 @@
-export const theme = {
+const theme = {
   colors: {
-    lightBlue: "#88C9EF",
-    neutralBlue: "#2C3DBD",
-    darkBlue: "#3E1BED",
-    salmon: "#FE978A",
-    orange: "FF6F50",
-    homeBackground: "#F8F3F3",
-    white: "#FFF"
-  }
-}
+    lightBlue: '#88C9EF',
+    neutralBlue: '#2C3DBD',
+    darkBlue: '#3E1BED',
+    salmon: '#FE978A',
+    orange: 'FF6F50',
+    homeBackground: '#F8F3F3',
+    white: '#FFF',
+  },
+};
+
+export default theme;

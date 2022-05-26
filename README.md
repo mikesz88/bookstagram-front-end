@@ -1,13 +1,7 @@
 Login Screen To Do List:
-1. Code Clean Up
-  - Styled Components (Home, LoginUser, BookCard, (PersonalInformation, UpdatePassword, UpdateForgotQA have the same button styles plus a couple more styles needed))
-  - Refactor
-  - Delete the console.logs
-  - Add Notifications to update any time the feed needs updating (upload or delete)
-3. Check one more time on the warning of forgot question and answer modal
-4. ReadMe Redo
-5. Check for Unit Testing?
-6. Deploy backend and front end
+1. Check one more time on the warning of forgot question and answer modal
+2. ReadMe Redo
+3. Deploy backend and front end
 
 
 

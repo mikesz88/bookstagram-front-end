@@ -1,56 +1,50 @@
+/* eslint-disable import/no-cycle */
 import React, { useState, useContext, useEffect } from 'react';
 import { Input, Button, Select, Form } from 'antd';
-import { StyledFormDrawer as FormStyled } from '../../../../ReusableCSS';
+import {
+  StyledButtonWrapper,
+  StyledFormDrawer as FormStyled,
+} from '../../../../ReusableCSS';
 import { UserContext } from '../../../../../App';
-import { Notification } from '../../../../Notification/Notification';
-import { forgotPasswordQuestions } from '../../../../../constants/forgotPasswordQuestions';
+import Notification from '../../../../Notification/Notification';
+import forgotPasswordQuestions from '../../../../../constants/forgotPasswordQuestions';
+import { StyledDivBold, StyledDivMarginBottom } from './style';
 
 const UpdateForgotQA = ({ close }) => {
   const { authService } = useContext(UserContext);
   const [form] = Form.useForm();
-  const [forgottenQuestion, setForgottenQuestion] = useState(authService.forgotPasswordQuestion)
+  const [forgottenQuestion, setForgottenQuestion] = useState(
+    authService.forgotPasswordQuestion
+  );
 
-  const onSubmit = values => {
-    const { 
-      confirm, 
-      newForgotPasswordQuestion, 
-      newForgotPasswordAnswer 
-    } = values;
-    console.log('test1');
+  // eslint-disable-next-line consistent-return
+  const onSubmit = (values) => {
+    const { confirm, newForgotPasswordQuestion, newForgotPasswordAnswer } =
+      values;
     if (confirm === newForgotPasswordAnswer) {
       return Notification(
         'error',
         'Same Password Answer',
         'Current and new forgotten password cannot be the same.'
-        );
-      }
-    console.log('test', values);
-    authService.updateForgot(
-      confirm,
-      newForgotPasswordQuestion,
-      newForgotPasswordAnswer
-    )
+      );
+    }
+    authService
+      .updateForgot(confirm, newForgotPasswordQuestion, newForgotPasswordAnswer)
       .then(() => {
-        console.log('update successful');
-        close(false)
+        close(false);
         Notification(
           'success',
           'Forgot Question/Password Updated',
           'Your forgotten question and password has been successfully updated.'
-          )
-        form.resetFields()
+        );
+        form.resetFields();
       })
       .catch((error) => {
-        console.log(error);
-        Notification(
-          'error', 
-          'Invalid Information', 
-          error.response.data.error
-        )
-      })
+        Notification('error', 'Invalid Information', error.response.data.error);
+      });
   };
 
-  const onForgotQuestionChange = value => {
+  const onForgotQuestionChange = (value) => {
     setForgottenQuestion(value);
     switch (value) {
       case "What is your mother's maiden name?":
@@ -59,55 +53,54 @@ const UpdateForgotQA = ({ close }) => {
         });
         return;
 
-      case "What is the name of your first pet?":
+      case 'What is the name of your first pet?':
         form.setFieldsValue({
-          note: "What is the name of your first pet?",
+          note: 'What is the name of your first pet?',
         });
         return;
 
-      case "What was your first car?":
+      case 'What was your first car?':
         form.setFieldsValue({
-          note: "What was your first car?",
+          note: 'What was your first car?',
         });
         return;
 
-      case "What elementary school did you attend?":
+      case 'What elementary school did you attend?':
         form.setFieldsValue({
-          note: "What elementary school did you attend?",
+          note: 'What elementary school did you attend?',
         });
         return;
 
-      case "What is the name of the town where you were born?":
+      case 'What is the name of the town where you were born?':
         form.setFieldsValue({
-          note: "What is the name of the town where you were born?",
+          note: 'What is the name of the town where you were born?',
         });
-        return;
+        break;
 
       default:
-        return;
     }
-  }
+  };
 
   const closeModal = () => {
     form.resetFields();
     close();
-  }
+  };
 
   useEffect(() => {
-    authService.forgotPasswordQuestion = forgottenQuestion
-  },[authService, forgottenQuestion])
+    authService.forgotPasswordQuestion = forgottenQuestion;
+  }, [authService, forgottenQuestion]);
 
   return (
     <FormStyled
-      layout='vertical'
-      name='register_user'
+      layout="vertical"
+      name="register_user"
       onFinish={onSubmit}
       form={form}
     >
-      <div style={{ marginBottom: '1rem' }}>
+      <StyledDivMarginBottom>
         <div>Current Question: </div>
-        <div style={{ fontWeight: 'bold' }}>{authService.forgotPasswordQuestion}</div>
-      </div>
+        <StyledDivBold>{authService.forgotPasswordQuestion}</StyledDivBold>
+      </StyledDivMarginBottom>
       <Form.Item
         label="Confirm Answer"
         name="confirm"
@@ -126,8 +119,8 @@ const UpdateForgotQA = ({ close }) => {
         rules={[
           {
             required: true,
-            message: 'Please input your last name.'
-          }
+            message: 'Please input your last name.',
+          },
         ]}
       >
         <Select
@@ -135,11 +128,15 @@ const UpdateForgotQA = ({ close }) => {
           onChange={onForgotQuestionChange}
           allowClear
         >
-          {forgotPasswordQuestions.map((question, index) => (
-            question !== forgottenQuestion 
-            ?  <Select.Option key={Date.now() + index} value={question}>{question}</Select.Option>
-            : ''
-          ))}
+          {forgotPasswordQuestions.map((question) =>
+            question !== forgottenQuestion ? (
+              <Select.Option key={question} value={question}>
+                {question}
+              </Select.Option>
+            ) : (
+              ''
+            )
+          )}
         </Select>
       </Form.Item>
       <Form.Item
@@ -148,25 +145,22 @@ const UpdateForgotQA = ({ close }) => {
         rules={[
           {
             required: true,
-            message: 'Please input your last name.'
-          }
+            message: 'Please input your last name.',
+          },
         ]}
       >
         <Input.Password />
       </Form.Item>
       <Form.Item>
-            <div style={{ display: 'flex', justifyContent: 'space-evenly' }}>
-              <Button onClick={closeModal}>Cancel</Button>
-              <Button 
-                type="primary" 
-                htmlType="submit"
-                >
-                Submit
-              </Button>
-            </div>
-          </Form.Item>
+        <StyledButtonWrapper>
+          <Button onClick={closeModal}>Cancel</Button>
+          <Button type="primary" htmlType="submit">
+            Submit
+          </Button>
+        </StyledButtonWrapper>
+      </Form.Item>
     </FormStyled>
-  )
-}
+  );
+};
 
-export default UpdateForgotQA
+export default UpdateForgotQA;

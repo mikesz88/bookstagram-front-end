@@ -1,58 +1,59 @@
+/* eslint-disable import/no-cycle */
 import React, { useContext } from 'react';
 import { Input, Button, Form, Select } from 'antd';
-import { StyledFormDrawer as FormStyled } from '../../../../ReusableCSS';
+import {
+  StyledButtonWrapper,
+  StyledFormDrawer as FormStyled,
+} from '../../../../ReusableCSS';
 import { UserContext } from '../../../../../App';
-import { Notification } from '../../../../Notification/Notification';
+import Notification from '../../../../Notification/Notification';
 
 const UpdatePersonalInformation = ({ close }) => {
   const { authService } = useContext(UserContext);
   const [form] = Form.useForm();
-  
-  const onSubmit = values => {
-    let body = {};
+
+  // eslint-disable-next-line consistent-return
+  const onSubmit = (values) => {
+    const body = {};
+    // eslint-disable-next-line no-restricted-syntax
     for (const key of Object.keys(values)) {
       if (values[key]) {
-        key === 'email' 
-        ? body[key] = values[key].toLowerCase()
-        : body[key] = values[key];
+        // eslint-disable-next-line no-unused-expressions
+        key === 'email'
+          ? (body[key] = values[key].toLowerCase())
+          : (body[key] = values[key]);
       }
     }
     if (!Object.keys(body).length) {
-      return Notification(
-        'error', 
-        'Empty!', 
-        'You must change at least one.'
-      )
+      return Notification('error', 'Empty!', 'You must change at least one.');
     }
-    console.log('Received values of form: ', body);
-    authService.updateUserDetails(body)
-    .then(() => {
-      console.log('Update Successful');
-      close(false);
-      Notification(
-        'success', 
-        'Profile Updated', 
-        'Your profile has been successfully updated.'
-      )
-      form.resetFields();
-    })
-    .catch((error) => {
-      console.log(error);
-      Notification(
-        'error', 
-        'Connection Error', 
-        'There was something wrong with the connection.'
-      )
-      form.resetFields();
-    })
-  }
+    authService
+      .updateUserDetails(body)
+      .then(() => {
+        close(false);
+        Notification(
+          'success',
+          'Profile Updated',
+          'Your profile has been successfully updated.'
+        );
+        form.resetFields();
+      })
+      .catch(() => {
+        Notification(
+          'error',
+          'Connection Error',
+          'There was something wrong with the connection.'
+        );
+        form.resetFields();
+      });
+  };
 
   const closeModal = () => {
     form.resetFields();
     close();
-  }
+  };
 
-  const onRoleChange = value => {
+  const onRoleChange = (value) => {
     switch (value) {
       case 'admin':
         form.setFieldsValue({
@@ -64,12 +65,11 @@ const UpdatePersonalInformation = ({ close }) => {
         form.setFieldsValue({
           note: 'user',
         });
-        return;
+        break;
 
       default:
-        return;
     }
-  }
+  };
 
   const { firstName, lastName, email, role } = authService;
 
@@ -83,46 +83,32 @@ const UpdatePersonalInformation = ({ close }) => {
         <div>
           <strong>Current Last Name: </strong>
           <div>{lastName}</div>
-        </div>        
+        </div>
         <div>
           <strong>Current Email: </strong>
           <div>{email}</div>
-        </div>        
+        </div>
         <div>
           <strong>Current Role: </strong>
-          <div>
-            {`${role[0].toUpperCase()}${role.slice(1).toLowerCase()}`}
-            </div>
-        </div>      
+          <div>{`${role[0].toUpperCase()}${role.slice(1).toLowerCase()}`}</div>
+        </div>
       </div>
       <FormStyled
-        layout='vertical'
-        name='register_user'
+        layout="vertical"
+        name="register_user"
         onFinish={onSubmit}
         form={form}
       >
-        <Form.Item
-          label="First Name"
-          name="firstName"
-        >
+        <Form.Item label="First Name" name="firstName">
           <Input type="text" />
         </Form.Item>
-        <Form.Item
-          label="Last Name"
-          name="lastName"
-        >
+        <Form.Item label="Last Name" name="lastName">
           <Input type="text" />
         </Form.Item>
-        <Form.Item
-          label="Email"
-          name="email"
-        >
+        <Form.Item label="Email" name="email">
           <Input type="email" />
         </Form.Item>
-        <Form.Item
-          label="Role"
-          name="role"
-        >
+        <Form.Item label="Role" name="role">
           <Select
             placeholder="Select a role"
             onChange={onRoleChange}
@@ -133,19 +119,16 @@ const UpdatePersonalInformation = ({ close }) => {
           </Select>
         </Form.Item>
         <Form.Item>
-          <div style={{ display: 'flex', justifyContent: 'space-evenly' }}>
+          <StyledButtonWrapper>
             <Button onClick={closeModal}>Cancel</Button>
-            <Button 
-              type="primary" 
-              htmlType="submit"
-              >
+            <Button type="primary" htmlType="submit">
               Submit
             </Button>
-          </div>
+          </StyledButtonWrapper>
         </Form.Item>
       </FormStyled>
     </>
-  )
-}
+  );
+};
 
-export default UpdatePersonalInformation
+export default UpdatePersonalInformation;
