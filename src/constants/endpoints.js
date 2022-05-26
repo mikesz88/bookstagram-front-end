@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:5000/api/v1';
+const BASE_URL = 'https://bookstagrambackend.herokuapp.com';
 const URL_AUTH = `${BASE_URL}/auth`;
 const URL_BOOKS = `${BASE_URL}/books`;
 
