@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable no-useless-catch */
 import axios from 'axios';
 import Endpoints from '../constants/endpoints';
@@ -81,20 +82,25 @@ class BookService {
     }
   }
 
-  async createNewBook(url, title, key, headers, userId) {
+  async createNewBook(url, bookTitle, key, headers) {
     const body = {
-      title,
+      title: bookTitle,
       photoUrl: url.split('?')[0],
       s3Key: key,
     };
     try {
-      await axios.post(Endpoints.urlCreateBook, body, { headers });
+      const response = await axios.post(Endpoints.urlCreateBook, body, {
+        headers,
+      });
+      const { _id, title, photoUrl, user, s3Key, createdAt } =
+        response.data.data;
       const filteredBook = {
+        id: _id,
         title,
-        photoUrl: url.split('?')[0],
-        user: userId,
-        s3Key: key,
-        createdAt: Date.now(),
+        photoUrl,
+        user,
+        s3Key,
+        createdAt,
       };
       this.setBookList([filteredBook, ...this.bookList]);
       this.resetS3TempInfo();

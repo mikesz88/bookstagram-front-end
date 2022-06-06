@@ -15,7 +15,7 @@ const { Dragger } = Upload;
 
 const UploadModal = ({ showModal, form }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const { authService, bookService } = useContext(UserContext);
+  const { authService, bookService, updateService } = useContext(UserContext);
 
   const onSubmit = (values) => {
     const { bookTitle } = values;
@@ -25,8 +25,7 @@ const UploadModal = ({ showModal, form }) => {
         bookService.s3Url,
         bookTitle,
         bookService.s3Key,
-        authService.bearerHeader,
-        authService.id
+        authService.bearerHeader
       )
       .then(() => {
         Notification(
@@ -34,11 +33,7 @@ const UploadModal = ({ showModal, form }) => {
           'Upload Successful',
           'Your book title and image has been uploaded.'
         );
-        Notification(
-          'info',
-          'Please Refresh',
-          'Click the refresh button to see your post in the book feed!'
-        );
+        updateService();
         showModal();
         form.resetFields();
         setIsLoading(false);
@@ -85,8 +80,6 @@ const UploadModal = ({ showModal, form }) => {
   const props = {
     name: 'file',
     customRequest: handleUpload,
-    // showUploadList: false,
-    // action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76', // this is the api call section
     maxCount: 1,
     progress: {
       format: (percent) => `${parseFloat(percent.toFixed(2))}%`,
@@ -163,5 +156,3 @@ const UploadModal = ({ showModal, form }) => {
 };
 
 export default UploadModal;
-/* <Button disabled={!bookTitle || !fileList} onClick={handleUpload}>{bookTitle && fileList? 'Click to Submit' : 'Missing Title or Image'}</Button> */
-/* <div>{!fileList ? 'Insert a file' : fileList ? 'Uploading' : 'Complete'}</div> */

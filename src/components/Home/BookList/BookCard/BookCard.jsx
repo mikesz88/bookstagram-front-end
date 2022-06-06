@@ -18,9 +18,9 @@ import {
 const { Meta } = Card;
 
 const BookCard = ({ data }) => {
-  const { authService, bookService } = useContext(UserContext);
+  const { authService, bookService, updateService } = useContext(UserContext);
   const { title, photoUrl, user } = data;
-  const [name, setName] = useState(user);
+  const [name, setName] = useState('');
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
@@ -29,7 +29,7 @@ const BookCard = ({ data }) => {
       .then((res) =>
         setName(`${res.data.data.firstName} ${res.data.data.lastName}`)
       );
-  }, [authService, user]);
+  }, [data]);
 
   const handleModal = () => setShowModal(!showModal);
 
@@ -53,11 +53,7 @@ const BookCard = ({ data }) => {
               'Book Deleted',
               'The Book was successfully deleted.'
             );
-            Notification(
-              'info',
-              'Please Refresh',
-              'Click the refresh button to see the latest feed!'
-            );
+            updateService();
           })
           .catch(() => {
             Notification(

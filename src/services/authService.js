@@ -24,6 +24,18 @@ class AuthService extends User {
     };
   }
 
+  resetUser() {
+    this.id = '';
+    this.authToken = '';
+    this.bearerHeader = '';
+    this.firstName = '';
+    this.lastName = '';
+    this.email = '';
+    this.role = '';
+    this.forgotPasswordQuestion = '';
+    this.isLoggedIn = false;
+  }
+
   getBearerHeader() {
     return this.bearerHeader;
   }
@@ -77,15 +89,7 @@ class AuthService extends User {
     const headers = this.getBearerHeader();
     try {
       await axios.get(Endpoints.urlLogout, { headers });
-      this.id = '';
-      this.authToken = '';
-      this.bearerHeader = '';
-      this.firstName = '';
-      this.lastName = '';
-      this.email = '';
-      this.role = '';
-      this.forgotPasswordQuestion = '';
-      this.isLoggedIn = false;
+      this.resetUser();
     } catch (error) {
       throw error;
     }

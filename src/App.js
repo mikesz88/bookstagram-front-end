@@ -1,6 +1,7 @@
+/* eslint-disable no-use-before-define */
 /* eslint-disable import/no-cycle */
 /* eslint-disable react/jsx-filename-extension */
-import React, { createContext, useContext } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import {
   BrowserRouter as Router,
   Routes,
@@ -26,10 +27,15 @@ const AuthProvider = ({ children }) => {
   const context = {
     authService,
     bookService,
+    updateService: () => setContextServices({ ...contextServices }),
   };
 
+  const [contextServices, setContextServices] = useState(context);
+
   return (
-    <UserContext.Provider value={context}>{children}</UserContext.Provider>
+    <UserContext.Provider value={contextServices}>
+      {children}
+    </UserContext.Provider>
   );
 };
 

@@ -19,17 +19,21 @@ export const StyledFilterContainer = styled.div`
   padding: 2rem 0;
 
   @media (max-width: 670px) {
-    top: 6rem;
+    top: 13rem;
+    padding-top: 4rem;
+  }
+
+  @media (max-width: 426px) {
+    top: 5rem;
     padding-top: 4rem;
   }
 `;
 
 export const StyledInput = styled(Input)`
   width: 300px;
-  margin-bottom: 1rem;
 `;
 
 export const StyledCardWrapper = styled.div`
   width: 100%;
-  margin-top: 7rem;
+  margin-top: 5rem;
 `;
