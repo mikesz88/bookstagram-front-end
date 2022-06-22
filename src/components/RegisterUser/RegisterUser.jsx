@@ -182,13 +182,13 @@ const RegisterUser = () => {
           </StyledSmallBubbleWrapper>
         </StyledPhoneContainer>
       </BackgroundContainer>
-      <Spin spinning={isSpinning}>
-        <FormStyled
-          layout="horizontal"
-          name="register_user"
-          onFinish={onSubmit}
-          form={form}
-        >
+      <FormStyled
+        layout="horizontal"
+        name="register_user"
+        onFinish={onSubmit}
+        form={form}
+      >
+        <Spin spinning={isSpinning}>
           <SignUpTextDiv>
             <SignUpSpanStyled>Sign Up</SignUpSpanStyled> FOR BOOKSTAGRAM
           </SignUpTextDiv>
@@ -337,8 +337,8 @@ const RegisterUser = () => {
               Sign Up
             </StyledButton>
           </FormItemStyled>
-        </FormStyled>
-      </Spin>
+        </Spin>
+      </FormStyled>
     </BackgroundFlexDiv>
   );
 };
