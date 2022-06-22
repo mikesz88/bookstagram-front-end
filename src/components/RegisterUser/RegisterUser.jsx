@@ -1,6 +1,6 @@
 /* eslint-disable import/no-cycle */
-import React, { useContext } from 'react';
-import { Form, Select } from 'antd';
+import React, { useState, useContext } from 'react';
+import { Form, Select, Spin } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../App';
 import Notification from '../Notification/Notification';
@@ -35,11 +35,13 @@ import LargeBubble from '../../images/big-circle.svg';
 import SmallBubble from '../../images/small-circle.svg';
 
 const RegisterUser = () => {
+  const [isSpinning, setIsSpinning] = useState(false);
   const { authService } = useContext(UserContext);
   const [form] = Form.useForm();
   const navigate = useNavigate();
 
   const onSubmit = (values) => {
+    setIsSpinning(true);
     const {
       firstName,
       lastName,
@@ -75,6 +77,7 @@ const RegisterUser = () => {
         );
         form.resetFields();
       });
+    setIsSpinning(false);
   };
 
   const passwordRegex =
@@ -179,159 +182,163 @@ const RegisterUser = () => {
           </StyledSmallBubbleWrapper>
         </StyledPhoneContainer>
       </BackgroundContainer>
-      <FormStyled
-        layout="horizontal"
-        name="register_user"
-        onFinish={onSubmit}
-        form={form}
-      >
-        <SignUpTextDiv>
-          <SignUpSpanStyled>Sign Up</SignUpSpanStyled> FOR BOOKSTAGRAM
-        </SignUpTextDiv>
-        <FormItemStyled
-          name="firstName"
-          register="true"
-          rules={[
-            {
-              required: true,
-              message: 'Please input your first name.',
-            },
-          ]}
+      <Spin spinning={isSpinning}>
+        <FormStyled
+          layout="horizontal"
+          name="register_user"
+          onFinish={onSubmit}
+          form={form}
         >
-          <InputStyled type="text" placeholder="First Name" />
-        </FormItemStyled>
-        <FormItemStyled
-          name="lastName"
-          register="true"
-          rules={[
-            {
-              required: true,
-              message: 'Please input your last name.',
-            },
-          ]}
-        >
-          <InputStyled type="text" placeholder="Last Name" />
-        </FormItemStyled>
-        <FormItemStyled
-          name="email"
-          register="true"
-          rules={[
-            {
-              required: true,
-              message: 'Please input your Email!',
-            },
-          ]}
-        >
-          <InputStyled type="email" placeholder="Email" />
-        </FormItemStyled>
-        <Form.Item noStyle>
-          <PasswordRulesDiv>
-            Password must be 8-20 characters, including: at least one capital
-            letter, at least one small letter, one number and one special
-            character - ! @ # $ % ^ & * ( ) _ +
-          </PasswordRulesDiv>
+          <SignUpTextDiv>
+            <SignUpSpanStyled>Sign Up</SignUpSpanStyled> FOR BOOKSTAGRAM
+          </SignUpTextDiv>
           <FormItemStyled
-            name="password"
+            name="firstName"
             register="true"
             rules={[
               {
                 required: true,
-                message: 'Please input your Password!',
-              },
-              {
-                min: 8,
-                message: 'Must be a minimum of 8 characters',
-              },
-              {
-                pattern: passwordRegex,
-                message:
-                  'Password must be 8-20 characters, including: at least one capital letter, at least one small letter, one number and one special character - ! @ # $ % ^ & * ( ) _ +',
+                message: 'Please input your first name.',
               },
             ]}
           >
-            <InputPasswordStyled type="password" placeholder="Password" />
+            <InputStyled type="text" placeholder="First Name" />
           </FormItemStyled>
-        </Form.Item>
-        <FormItemStyled
-          name="confirm"
-          dependencies={['password']}
-          hasFeedback
-          register="true"
-          rules={[
-            {
-              required: true,
-              message: 'Please confirm your password!',
-            },
-            ({ getFieldValue }) => ({
-              validator(_, value) {
-                if (!value || getFieldValue('password') === value) {
-                  return Promise.resolve();
-                }
-                return Promise.reject(
-                  new Error('The two passwords that you entered do not match!')
-                );
+          <FormItemStyled
+            name="lastName"
+            register="true"
+            rules={[
+              {
+                required: true,
+                message: 'Please input your last name.',
               },
-            }),
-          ]}
-        >
-          <InputPasswordStyled placeholder="Confirm Password" />
-        </FormItemStyled>
-        <FormItemStyled name="role" register="true">
-          <SelectStyled
-            placeholder="Select a role"
-            onChange={onRoleChange}
-            allowClear
+            ]}
           >
-            <Select.Option value="admin">admin</Select.Option>
-            <Select.Option value="user">user</Select.Option>
-          </SelectStyled>
-        </FormItemStyled>
-        <FormItemStyled
-          name="forgotPasswordQuestion"
-          register="true"
-          rules={[
-            {
-              required: true,
-              message: 'Please select your question.',
-            },
-          ]}
-        >
-          <SelectStyled
-            placeholder="Forgot Password Question"
-            onChange={onForgotQuestionChange}
-            allowClear
+            <InputStyled type="text" placeholder="Last Name" />
+          </FormItemStyled>
+          <FormItemStyled
+            name="email"
+            register="true"
+            rules={[
+              {
+                required: true,
+                message: 'Please input your Email!',
+              },
+            ]}
           >
-            {forgotPasswordQuestions.map((question) => (
-              <Select.Option key={question} value={question}>
-                {question}
-              </Select.Option>
-            ))}
-          </SelectStyled>
-        </FormItemStyled>
-        <FormItemStyled
-          name="forgotPasswordAnswer"
-          register="true"
-          rules={[
-            {
-              required: true,
-              message: 'Please write your answer.',
-            },
-          ]}
-        >
-          <InputStyled type="text" placeholder="Forgot Password Answer" />
-        </FormItemStyled>
-        <FormItemStyled register="true" style={{ textAlign: 'center' }}>
-          <div>By signing up you agree to our terms and policies.</div>
-          <StyledButton
-            larger="true"
-            type="primary"
-            htmlType="submit"
-            className="login-form-button"
+            <InputStyled type="email" placeholder="Email" />
+          </FormItemStyled>
+          <Form.Item noStyle>
+            <PasswordRulesDiv>
+              Password must be 8-20 characters, including: at least one capital
+              letter, at least one small letter, one number and one special
+              character - ! @ # $ % ^ & * ( ) _ +
+            </PasswordRulesDiv>
+            <FormItemStyled
+              name="password"
+              register="true"
+              rules={[
+                {
+                  required: true,
+                  message: 'Please input your Password!',
+                },
+                {
+                  min: 8,
+                  message: 'Must be a minimum of 8 characters',
+                },
+                {
+                  pattern: passwordRegex,
+                  message:
+                    'Password must be 8-20 characters, including: at least one capital letter, at least one small letter, one number and one special character - ! @ # $ % ^ & * ( ) _ +',
+                },
+              ]}
+            >
+              <InputPasswordStyled type="password" placeholder="Password" />
+            </FormItemStyled>
+          </Form.Item>
+          <FormItemStyled
+            name="confirm"
+            dependencies={['password']}
+            hasFeedback
+            register="true"
+            rules={[
+              {
+                required: true,
+                message: 'Please confirm your password!',
+              },
+              ({ getFieldValue }) => ({
+                validator(_, value) {
+                  if (!value || getFieldValue('password') === value) {
+                    return Promise.resolve();
+                  }
+                  return Promise.reject(
+                    new Error(
+                      'The two passwords that you entered do not match!'
+                    )
+                  );
+                },
+              }),
+            ]}
           >
-            Sign Up
-          </StyledButton>
-        </FormItemStyled>
-      </FormStyled>
+            <InputPasswordStyled placeholder="Confirm Password" />
+          </FormItemStyled>
+          <FormItemStyled name="role" register="true">
+            <SelectStyled
+              placeholder="Select a role"
+              onChange={onRoleChange}
+              allowClear
+            >
+              <Select.Option value="admin">admin</Select.Option>
+              <Select.Option value="user">user</Select.Option>
+            </SelectStyled>
+          </FormItemStyled>
+          <FormItemStyled
+            name="forgotPasswordQuestion"
+            register="true"
+            rules={[
+              {
+                required: true,
+                message: 'Please select your question.',
+              },
+            ]}
+          >
+            <SelectStyled
+              placeholder="Forgot Password Question"
+              onChange={onForgotQuestionChange}
+              allowClear
+            >
+              {forgotPasswordQuestions.map((question) => (
+                <Select.Option key={question} value={question}>
+                  {question}
+                </Select.Option>
+              ))}
+            </SelectStyled>
+          </FormItemStyled>
+          <FormItemStyled
+            name="forgotPasswordAnswer"
+            register="true"
+            rules={[
+              {
+                required: true,
+                message: 'Please write your answer.',
+              },
+            ]}
+          >
+            <InputStyled type="text" placeholder="Forgot Password Answer" />
+          </FormItemStyled>
+          <FormItemStyled register="true" style={{ textAlign: 'center' }}>
+            <div>By signing up you agree to our terms and policies.</div>
+            <StyledButton
+              larger="true"
+              type="primary"
+              htmlType="submit"
+              className="login-form-button"
+            >
+              Sign Up
+            </StyledButton>
+          </FormItemStyled>
+        </FormStyled>
+      </Spin>
     </BackgroundFlexDiv>
   );
 };

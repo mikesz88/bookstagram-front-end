@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Form, Input, Button, Select } from 'antd';
+import { Form, Input, Button, Select, Spin } from 'antd';
 import img from '../../images/backgroundWhite.png';
 
 export const StyledButton = styled(Button)`
@@ -34,6 +34,14 @@ export const BackgroundContainer = styled.div`
 `;
 
 export const FormStyled = styled(Form)`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const SpinStyled = styled(Spin)`
   flex: 1;
   display: flex;
   flex-direction: column;

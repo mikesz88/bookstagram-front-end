@@ -1,13 +1,12 @@
 /* eslint-disable import/no-cycle */
 import React, { useState, useContext } from 'react';
-import { Form, Button, Modal, Spin } from 'antd';
+import { Form, Button, Modal } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../../App';
 import Notification from '../Notification/Notification';
 import {
   BackgroundFlexDiv,
   BackgroundContainer,
-  FormStyled,
   InputStyled,
   InputPasswordStyled,
   LoginTextDiv,
@@ -25,6 +24,7 @@ import {
   StyledLargeBubbleWrapper,
   StyledSmallBubbleWrapper,
   StyledButton,
+  SpinStyled,
 } from '../ReusableCSS';
 import Logo from '../../images/logo.svg';
 import BookPhone from '../../images/home-screen-phone-books-pic.svg';
@@ -113,8 +113,8 @@ const LoginUser = () => {
             </StyledSmallBubbleWrapper>
           </StyledPhoneContainer>
         </BackgroundContainer>
-        <Spin spinning={isSpinning}>
-          <FormStyled layout="vertical" name="normal_login" onFinish={onSubmit}>
+        <SpinStyled spinning={isSpinning}>
+          <Form layout="vertical" name="normal_login" onFinish={onSubmit}>
             <LoginTextDiv>
               <LoginSpanStyled>Login</LoginSpanStyled> Your Account
             </LoginTextDiv>
@@ -159,8 +159,8 @@ const LoginUser = () => {
                 <StyledRegisterNow>Create An Account</StyledRegisterNow>
               </Link>
             </Form.Item>
-          </FormStyled>
-        </Spin>
+          </Form>
+        </SpinStyled>
       </BackgroundFlexDiv>
 
       <Modal
