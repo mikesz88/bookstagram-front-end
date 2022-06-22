@@ -1,6 +1,6 @@
 /* eslint-disable import/no-cycle */
 import React, { useState, useContext } from 'react';
-import { Form, Button, Modal } from 'antd';
+import { Form, Button, Modal, Spin } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../../App';
 import Notification from '../Notification/Notification';
@@ -37,9 +37,11 @@ const LoginUser = () => {
   const { authService } = useContext(UserContext);
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
+  const [isSpinning, setIsSpinning] = useState(false);
   const [form] = Form.useForm();
 
   const onSubmit = (values) => {
+    setIsSpinning(true);
     authService
       .loginUser(values.email, values.password)
       .then(() => {
@@ -57,6 +59,7 @@ const LoginUser = () => {
           'Email or Password was incorrect.'
         );
       });
+    setIsSpinning(false);
   };
 
   const handleCancel = () => {
@@ -110,52 +113,54 @@ const LoginUser = () => {
             </StyledSmallBubbleWrapper>
           </StyledPhoneContainer>
         </BackgroundContainer>
-        <FormStyled layout="vertical" name="normal_login" onFinish={onSubmit}>
-          <LoginTextDiv>
-            <LoginSpanStyled>Login</LoginSpanStyled> Your Account
-          </LoginTextDiv>
-          <Form.Item
-            name="email"
-            rules={[
-              {
-                required: true,
-                message: 'Please input your Email.',
-              },
-            ]}
-          >
-            <InputStyled type="email" placeholder="Email" />
-          </Form.Item>
-          <Form.Item
-            placeholder="Password"
-            name="password"
-            rules={[
-              {
-                required: true,
-                message: 'Please input your Password.',
-              },
-            ]}
-          >
-            <InputPasswordStyled placeholder="Password" />
-          </Form.Item>
-          <Form.Item>
-            <Button
-              style={{ color: '#3E1BED' }}
-              type="text"
-              onClick={() => setShowModal(!showModal)}
+        <Spin spinning={isSpinning}>
+          <FormStyled layout="vertical" name="normal_login" onFinish={onSubmit}>
+            <LoginTextDiv>
+              <LoginSpanStyled>Login</LoginSpanStyled> Your Account
+            </LoginTextDiv>
+            <Form.Item
+              name="email"
+              rules={[
+                {
+                  required: true,
+                  message: 'Please input your Email.',
+                },
+              ]}
             >
-              Forgot password?
-            </Button>
-          </Form.Item>
-          <Form.Item>
-            <StyledButton larger="true" type="primary" htmlType="submit">
-              Submit
-            </StyledButton>
-            <StyledNewBookstagram>New to Bookstagram?</StyledNewBookstagram>
-            <Link to="/register">
-              <StyledRegisterNow>Create An Account</StyledRegisterNow>
-            </Link>
-          </Form.Item>
-        </FormStyled>
+              <InputStyled type="email" placeholder="Email" />
+            </Form.Item>
+            <Form.Item
+              placeholder="Password"
+              name="password"
+              rules={[
+                {
+                  required: true,
+                  message: 'Please input your Password.',
+                },
+              ]}
+            >
+              <InputPasswordStyled placeholder="Password" />
+            </Form.Item>
+            <Form.Item>
+              <Button
+                style={{ color: '#3E1BED' }}
+                type="text"
+                onClick={() => setShowModal(!showModal)}
+              >
+                Forgot password?
+              </Button>
+            </Form.Item>
+            <Form.Item>
+              <StyledButton larger="true" type="primary" htmlType="submit">
+                Submit
+              </StyledButton>
+              <StyledNewBookstagram>New to Bookstagram?</StyledNewBookstagram>
+              <Link to="/register">
+                <StyledRegisterNow>Create An Account</StyledRegisterNow>
+              </Link>
+            </Form.Item>
+          </FormStyled>
+        </Spin>
       </BackgroundFlexDiv>
 
       <Modal
