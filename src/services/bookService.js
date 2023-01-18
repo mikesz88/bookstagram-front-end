@@ -78,6 +78,7 @@ class BookService {
         body: file,
       });
     } catch (error) {
+      console.error(error);
       throw error;
     }
   }
