@@ -1,4 +1,5 @@
-const BASE_URL = 'https://bookstagram-be.cyclic.app/api/v1';
+const BASE_URL = 'https://sanchez-bookstagram-backend.cyclic.app/api/v1';
+// const BASE_URL = 'http://localhost:5000/api/v1';
 const URL_AUTH = `${BASE_URL}/auth`;
 const URL_BOOKS = `${BASE_URL}/books`;
 
