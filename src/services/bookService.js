@@ -69,6 +69,7 @@ class BookService {
   }
 
   async uploadImageToS3(url, file) {
+    console.log(url);
     try {
       await fetch(url, {
         method: 'PUT',
