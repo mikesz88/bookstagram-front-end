@@ -85,15 +85,15 @@ const RegisterUser = () => {
 
   const onRoleChange = (value) => {
     switch (value) {
-      case 'admin':
+      case 'ADMIN':
         form.setFieldsValue({
-          note: 'admin',
+          note: 'ADMIN',
         });
         return;
 
-      case 'user':
+      case 'USER':
         form.setFieldsValue({
-          note: 'user',
+          note: 'USER',
         });
         break;
 
@@ -288,8 +288,8 @@ const RegisterUser = () => {
               onChange={onRoleChange}
               allowClear
             >
-              <Select.Option value="admin">admin</Select.Option>
-              <Select.Option value="user">user</Select.Option>
+              <Select.Option value="ADMIN">admin</Select.Option>
+              <Select.Option value="USER">user</Select.Option>
             </SelectStyled>
           </FormItemStyled>
           <FormItemStyled

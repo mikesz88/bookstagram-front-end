@@ -9,7 +9,7 @@ import { UserContext } from '../../../../../App';
 import Notification from '../../../../Notification/Notification';
 
 const UpdatePersonalInformation = ({ close }) => {
-  const { authService } = useContext(UserContext);
+  const { authService, updateService } = useContext(UserContext);
   const [form] = Form.useForm();
 
   // eslint-disable-next-line consistent-return
@@ -37,6 +37,7 @@ const UpdatePersonalInformation = ({ close }) => {
           'Your profile has been successfully updated.'
         );
         form.resetFields();
+        updateService();
       })
       .catch(() => {
         Notification(
@@ -55,15 +56,15 @@ const UpdatePersonalInformation = ({ close }) => {
 
   const onRoleChange = (value) => {
     switch (value) {
-      case 'admin':
+      case 'ADMIN':
         form.setFieldsValue({
-          note: 'admin',
+          note: 'ADMIN',
         });
         return;
 
-      case 'user':
+      case 'USER':
         form.setFieldsValue({
-          note: 'user',
+          note: 'USER',
         });
         break;
 
@@ -114,8 +115,8 @@ const UpdatePersonalInformation = ({ close }) => {
             onChange={onRoleChange}
             allowClear
           >
-            <Select.Option value="admin">admin</Select.Option>
-            <Select.Option value="user">user</Select.Option>
+            <Select.Option value="ADMIN">admin</Select.Option>
+            <Select.Option value="USER">user</Select.Option>
           </Select>
         </Form.Item>
         <Form.Item>

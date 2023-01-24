@@ -60,8 +60,8 @@ const LoginUser = () => {
           error.response.data.error,
           'Email or Password was incorrect.'
         );
-      });
-    setIsSpinning(false);
+      })
+      .finally(() => setIsSpinning(false));
   };
 
   const handleCancel = () => {
@@ -153,7 +153,12 @@ const LoginUser = () => {
               </Button>
             </Form.Item>
             <Form.Item>
-              <StyledButton larger="true" type="primary" htmlType="submit">
+              <StyledButton
+                loading={isSpinning}
+                larger="true"
+                type="primary"
+                htmlType="submit"
+              >
                 Submit
               </StyledButton>
               <StyledNewBookstagram>New to Bookstagram?</StyledNewBookstagram>

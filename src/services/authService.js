@@ -120,9 +120,13 @@ class AuthService extends User {
       const response = await axios.put(
         Endpoints.urlUpdateUser,
         JSON.stringify(requestBody),
-        { headers }
+        {
+          headers,
+        }
       );
-      this.setUserData(response.data.data);
+      this.setAuthToken(response.data.token);
+      this.setBearerHeader(response.data.token);
+      this.getUser();
     } catch (error) {
       throw error;
     }
@@ -135,7 +139,7 @@ class AuthService extends User {
       newPassword,
     };
     try {
-      const response = await axios.post(Endpoints.urlUpdatePassword, body, {
+      const response = await axios.put(Endpoints.urlUpdatePassword, body, {
         headers,
       });
       this.setAuthToken(response.data.token);

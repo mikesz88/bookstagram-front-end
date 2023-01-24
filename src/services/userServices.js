@@ -14,15 +14,14 @@ class User {
   }
 
   setUserData(userData) {
-    const { _id, firstName, lastName, email, role, forgotPasswordQuestion } =
-      userData;
+    const { id, firstName, lastName, email, role, forgotPassword } = userData;
 
-    this.id = _id;
+    this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;
     this.role = role;
-    this.forgotPasswordQuestion = forgotPasswordQuestion;
+    this.forgotPasswordQuestion = forgotPassword.forgotPasswordQuestion;
   }
 }
 

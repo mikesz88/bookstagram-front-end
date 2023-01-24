@@ -34,7 +34,7 @@ class BookService {
       response.data.data.forEach((book) => {
         const filteredBook = {
           // eslint-disable-next-line no-underscore-dangle
-          id: book._id,
+          id: book.id,
           title: book.title,
           photoUrl: book.photoUrl,
           s3Key: book.s3Key,
@@ -52,7 +52,7 @@ class BookService {
     try {
       const response = await axios.get(Endpoints.urlGetS3Url, { headers });
       this.setS3Url(response.data.photoUrl);
-      this.setS3Key(response.data.key);
+      this.setS3Key(response.data.s3Key);
     } catch (error) {
       throw error;
     }
@@ -94,10 +94,10 @@ class BookService {
       const response = await axios.post(Endpoints.urlCreateBook, body, {
         headers,
       });
-      const { _id, title, photoUrl, user, s3Key, createdAt } =
+      const { id, title, photoUrl, user, s3Key, createdAt } =
         response.data.data;
       const filteredBook = {
-        id: _id,
+        id,
         title,
         photoUrl,
         user,
