@@ -42,7 +42,6 @@ const LoginUser = () => {
 
   const onSubmit = (values) => {
     setIsSpinning(true);
-    console.log(values.email, values.password);
     authService
       .loginUser(values.email, values.password)
       .then(() => {

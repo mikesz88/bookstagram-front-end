@@ -24,15 +24,6 @@ const BookCard = ({ data }) => {
   const [name, setName] = useState('');
   const [showModal, setShowModal] = useState(false);
 
-  // useEffect(() => {
-  //   authService
-  //     .findUserName(user)
-  //     .then((res) =>
-  //       setName(`${res.data.data.firstName} ${res.data.data.lastName}`)
-  //     );
-  //   console.log(name);
-  // }, []);
-
   const handleModal = () => setShowModal(!showModal);
 
   const handleOk = () => setShowModal(!showModal);
